@@ -3,12 +3,16 @@ using UnityEngine;
 public class FrogRotation : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler;
+    [SerializeField] private TongController tongueController;
     [SerializeField] private float speed;
 
     // Update is called once per frame
     void Update()
     {
-        RotateToMousePos();
+        if (!tongueController.isShooted)
+        {
+            RotateToMousePos();
+        }
     }
 
     private void RotateToMousePos()

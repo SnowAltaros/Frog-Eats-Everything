@@ -1,13 +1,13 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TongController : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private float tongueLength = 5f;
+    [SerializeField] private float speed = 30;
     private Vector3 startTongueLength;
-    private float timer = 0.8f;
     private bool isTongueOut;
+    public bool isShooted;
 
     void Start()
     {
@@ -17,28 +17,43 @@ public class TongController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ShootTongue();   
+        if (inputHandler.mouseWasClicked)
+        {
+            ShootTongue();
+        }
+
+        RollBackTongue();
     }
 
     private void ShootTongue()
     {
-        bool mouseClicked = inputHandler.ClickTriggered;
-
-        if (mouseClicked && !isTongueOut)
+        if (!isTongueOut)
         {
+            isShooted = true;
             Vector3 scale = transform.localScale;
             scale.y = tongueLength;
-            transform.localScale = scale;
-            isTongueOut = true;
+            Vector3 targetScale = Vector3.MoveTowards(transform.localScale, scale, speed * Time.deltaTime);
+            transform.localScale = targetScale;
+
+            if (transform.localScale.y == scale.y)
+            {
+                isTongueOut = true;
+                inputHandler.mouseWasClicked = false;
+            }
         }
+    }
 
-        timer -= Time.deltaTime;
-
-        if (timer < 0f)
+    private void RollBackTongue()
+    {
+        if (isTongueOut)
         {
-            transform.localScale = startTongueLength;
-            timer = 0.8f;
-            isTongueOut = false;
+            transform.localScale = Vector3.MoveTowards(transform.localScale, startTongueLength, speed * Time.deltaTime);
+
+            if (transform.localScale.y == startTongueLength.y)
+            {
+                isTongueOut = false;
+                isShooted = false;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public Vector2 MousePosition {get; private set;}
     public bool ClickTriggered {get; private set;}
+    public bool mouseWasClicked;
 
     private void Awake()
     {
@@ -28,12 +29,12 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnClick(InputAction.CallbackContext context)
     {
         ClickTriggered = true;
+        mouseWasClicked = true;
     }
 
     private void Update()
     {
         GetMouseWorldPosition();
-
         ClickTriggered = false;
     }
 

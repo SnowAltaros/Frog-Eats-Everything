@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 914239907}
   - component: {fileID: 914239908}
   m_Layer: 0
-  m_Name: Frog
+  m_Name: FrogBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,6 +522,52 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1688491413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1688491414}
+  - component: {fileID: 1688491415}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1688491414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688491413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10211, y: 0.4684, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1688491415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688491413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60738e64026034879bab943c14142c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
+  fly: {fileID: 876028360596663280, guid: aefb34a5ef66a4e3d93eeab6152e4451, type: 3}
+  spawnRate: 1.5
 --- !u!1 &1851874198
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebdc273ee1910431e971d625204ce5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  mouseWasClicked: 0
 --- !u!4 &1851874200
 Transform:
   m_ObjectHideFlags: 0
@@ -612,7 +659,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TongController
   inputHandler: {fileID: 1851874199}
-  tongueLength: 5
+  tongueLength: 50
+  speed: 30
+  isShooted: 0
 --- !u!1 &2004542055
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FrogRotation
   inputHandler: {fileID: 1851874199}
+  tongueController: {fileID: 1942332438}
   speed: 20
 --- !u!1 &2110941478
 GameObject:
@@ -761,3 +811,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 2004542056}
   - {fileID: 1851874200}
+  - {fileID: 1688491414}
