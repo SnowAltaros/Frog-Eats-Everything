@@ -8,6 +8,7 @@ public class TongController : MonoBehaviour
     private Vector3 startTongueLength;
     private bool isTongueOut;
     public bool isShooted;
+    private bool isCollided;
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class TongController : MonoBehaviour
             Vector3 targetScale = Vector3.MoveTowards(transform.localScale, scale, speed * Time.deltaTime);
             transform.localScale = targetScale;
 
-            if (transform.localScale.y == scale.y)
+            if (transform.localScale.y == scale.y || isCollided)
             {
                 isTongueOut = true;
                 inputHandler.mouseWasClicked = false;
@@ -53,7 +54,13 @@ public class TongController : MonoBehaviour
             {
                 isTongueOut = false;
                 isShooted = false;
+                isCollided = false;
             }
         }
+    }
+
+    public void OnChildTrigger(Collider2D collision)
+    {
+        isCollided = true;
     }
 }

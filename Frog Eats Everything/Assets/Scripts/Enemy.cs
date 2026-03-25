@@ -3,22 +3,27 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
-    // private Vector3 movingDirection;
     private float topPos = 6f;
     private float bottomPos = -6f;
     private float leftPos = -11f;
     private float rightPos = 11f;
+    private bool isHitted;
+    private Vector2 direction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SpawnPosition();
+        direction = Random.insideUnitCircle.normalized;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
-        Destroy();
+        if (!isHitted)
+        {
+            transform.Translate(direction * speed * Time.deltaTime);
+        }
+        DestroyOutsideScreen();
     }
 
     private void SpawnPosition()
@@ -70,11 +75,34 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector2(rightPos, randomYPos);
     }
 
-    private void Destroy()
+    private void DestroyOutsideScreen()
     {
         if (transform.position.x < leftPos || transform.position.x > rightPos || transform.position.y < bottomPos || transform.position.y > topPos)
         {
+            //Destroy(gameObject);
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            direction = Random.insideUnitCircle.normalized;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Tongue"))
+        {
+            isHitted = true;
+            transform.SetParent(collision.transform);
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
             Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Boundary"))
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+            direction = Random.insideUnitCircle.normalized;
+            Debug.Log("Collided with " + collision.gameObject.tag);
         }
     }
 }
