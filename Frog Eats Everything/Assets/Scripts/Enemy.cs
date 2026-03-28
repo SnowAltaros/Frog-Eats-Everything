@@ -3,17 +3,20 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
+    private SpawnManager spawnManager;
     private float topPos = 6f;
     private float bottomPos = -6f;
     private float leftPos = -11f;
     private float rightPos = 11f;
     private bool isHitted;
     private Vector2 direction;
+    private float angle;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SpawnPosition();
-        direction = Random.insideUnitCircle.normalized;
+        GetMovingDirection();
+        spawnManager = GameObject.FindAnyObjectByType<SpawnManager>().GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -52,21 +55,18 @@ public class Enemy : MonoBehaviour
     {
         float randomXPos = Random.Range(leftPos, rightPos);
         transform.position = new Vector2(randomXPos, topPos);
-        transform.rotation = Quaternion.Euler(0, 0 , 90);
     }
 
     private void RandomBottomSpawn()
     {
         float randomXPos = Random.Range(leftPos, rightPos);
         transform.position = new Vector2(randomXPos, bottomPos);
-        transform.rotation =Quaternion.Euler(0, 0, -90);
     }
 
     private void RandomLeftSpawn()
     {
         float randomYPos = Random.Range(topPos, bottomPos);
         transform.position = new Vector2(leftPos, randomYPos);
-        transform.rotation =Quaternion.Euler(0, 0, 180);
     }
 
     private void RandomRightSpawn()
@@ -79,10 +79,17 @@ public class Enemy : MonoBehaviour
     {
         if (transform.position.x < leftPos || transform.position.x > rightPos || transform.position.y < bottomPos || transform.position.y > topPos)
         {
-            //Destroy(gameObject);
-            transform.rotation = Quaternion.Euler(0, 0, 180);
             direction = Random.insideUnitCircle.normalized;
         }
+    }
+
+    private void GetMovingDirection()
+    {
+        direction = Random.insideUnitCircle.normalized;
+
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -96,13 +103,12 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
+            spawnManager.totalSpawned --;
         }
 
         if (collision.gameObject.CompareTag("Boundary"))
         {
-            transform.rotation = Quaternion.Euler(0, 0, 90);
             direction = Random.insideUnitCircle.normalized;
-            Debug.Log("Collided with " + collision.gameObject.tag);
         }
     }
 }

@@ -714,8 +714,8 @@ GameObject:
   m_Component:
   - component: {fileID: 962352104}
   - component: {fileID: 962352105}
-  - component: {fileID: 962352106}
   - component: {fileID: 962352107}
+  - component: {fileID: 962352109}
   - component: {fileID: 962352108}
   m_Layer: 0
   m_Name: TongueEnd
@@ -798,43 +798,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!70 &962352106
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962352103}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: -1
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.361178, y: 0.009142392}
-  m_Size: {x: 0.32569155, y: 1.4759902}
-  m_Direction: 0
 --- !u!50 &962352107
 Rigidbody2D:
   serializedVersion: 5
@@ -874,6 +837,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56110748e2ff643b5bb011835fb7715b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TongueEndCollision
+--- !u!61 &962352109
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962352103}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.346432, y: 0.007982254}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.307136, y: 1.4093094}
+  m_EdgeRadius: 0
 --- !u!1 &1674331175
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +963,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1.5
+  m_Radius: 1.6
 --- !u!4 &1674331178
 Transform:
   m_ObjectHideFlags: 0
@@ -1014,8 +1023,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60738e64026034879bab943c14142c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
-  fly: {fileID: 876028360596663280, guid: aefb34a5ef66a4e3d93eeab6152e4451, type: 3}
+  enemy: {fileID: 7299396114415321050, guid: 4c58e9d962a984fb584ec7719014b959, type: 3}
   spawnRate: 1.5
+  totalSpawned: 0
 --- !u!1 &1851874198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1188,7 @@ Transform:
   m_GameObject: {fileID: 1942332436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.231, z: 0}
+  m_LocalPosition: {x: 0, y: 0.084, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1199,7 +1209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TongController
   inputHandler: {fileID: 1851874199}
-  tongueLength: 10
+  tongueLength: 20
   speed: 30
   isShooted: 0
 --- !u!1 &2004542055
@@ -1253,7 +1263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FrogRotation
   inputHandler: {fileID: 1851874199}
   tongueController: {fileID: 1942332438}
-  speed: 20
+  speed: 100
 --- !u!50 &2004542058
 Rigidbody2D:
   serializedVersion: 5
@@ -1316,7 +1326,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.6
+  m_Radius: 0.7
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
