@@ -3,8 +3,12 @@ using UnityEngine;
 public class TongController : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler;
-    [SerializeField] private float tongueLength = 5f;
-    [SerializeField] private float speed = 30;
+    [SerializeField] public float tongueLength;
+    [SerializeField] public float speed;
+    [SerializeField] public int strength;
+    private float lastTongueLength;
+    private float lastSpeed;
+    private int lastStrength;
     private Vector3 startTongueLength;
     private bool isTongueOut;
     public bool isShooted;
@@ -12,18 +16,52 @@ public class TongController : MonoBehaviour
 
     void Start()
     {
-        startTongueLength = transform.localScale;
+        StartingParameters();
     }
 
     // Update is called once per frame
     void Update()
     {
+        CheckTongueStatsChange();
+
         if (inputHandler.mouseWasClicked)
         {
             ShootTongue();
         }
 
         RollBackTongue();
+    }
+
+    private void StartingParameters()
+    {
+        startTongueLength = transform.localScale;
+        tongueLength = PlayerStats.tongueLength;
+        lastTongueLength = tongueLength;
+        speed = PlayerStats.tongueSpeed;
+        lastSpeed = speed;
+        strength = PlayerStats.tongueStength;
+        lastStrength = strength;
+    }
+
+    private void CheckTongueStatsChange()
+    {
+        if (PlayerStats.tongueLength != lastTongueLength)
+        {
+            tongueLength = PlayerStats.tongueLength;
+            lastTongueLength = tongueLength;
+        }
+
+        if (PlayerStats.tongueSpeed != lastSpeed)
+        {
+            speed = PlayerStats.tongueSpeed;
+            lastSpeed = speed;
+        }
+
+        if (PlayerStats.tongueStength != lastStrength)
+        {
+            strength = PlayerStats.tongueStength;
+            lastStrength = strength;
+        }
     }
 
     private void ShootTongue()

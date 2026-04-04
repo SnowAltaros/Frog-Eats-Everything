@@ -4,11 +4,20 @@ public class FrogRotation : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private TongController tongueController;
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
+    private float lastSpeed;
+
+    private void Start()
+    {
+        speed = PlayerStats.frogRotationSpeed;
+        lastSpeed = speed;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        CheckSpeedChange();
+
         if (!tongueController.isShooted)
         {
             RotateToMousePos();
@@ -30,5 +39,14 @@ public class FrogRotation : MonoBehaviour
 
         // Adding speed and rotate to target position from initial
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime);
+    }
+
+    private void CheckSpeedChange()
+    {
+        if (PlayerStats.frogRotationSpeed != lastSpeed)
+        {
+            speed = PlayerStats.frogRotationSpeed;
+            lastSpeed = speed;
+        }
     }
 }

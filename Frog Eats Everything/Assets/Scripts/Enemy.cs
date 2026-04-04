@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -118,10 +117,16 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Tongue"))
         {
-            health--;
-            healthBar.value = health;
+            TongController tongue = collision.gameObject.GetComponentInParent<TongController>();
 
-            if (health == 0)
+            if (tongue.strength > 0)
+            {
+                health -= tongue.strength;
+                health = Mathf.Max(health, 0);
+                healthBar.value = health;
+            }
+
+            if (health <= 0)
             {
                 isHitted = true;
                 tongueEnd = collision.gameObject.transform;
@@ -137,10 +142,12 @@ public class Enemy : MonoBehaviour
             if (enemyType == "Fly")
             {
                 spawnManager.maxFly--;
+                PlayerStats.wings += value;
             }
             else if (enemyType == "DragonFly")
             {
                 spawnManager.maxDragonFly--;
+                PlayerStats.wings += value;
             }
         }
 
