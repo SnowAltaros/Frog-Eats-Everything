@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5323006869910971852}
   - component: {fileID: 5300203434690016318}
   - component: {fileID: 223666725852820889}
+  - component: {fileID: -3962727117547125315}
   m_Layer: 0
   m_Name: Fly
   m_TagString: Untagged
@@ -148,6 +149,28 @@ CapsuleCollider2D:
   m_Offset: {x: -0.020284653, y: 0.081138015}
   m_Size: {x: 4.329915, y: 8.6173725}
   m_Direction: 0
+--- !u!95 &-3962727117547125315
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537279752610553659}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12858023a82c440c6840bc69eeb96b34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &990630435196326230
 GameObject:
   m_ObjectHideFlags: 0
