@@ -5,6 +5,7 @@ public class FrogRotation : MonoBehaviour
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private TongController tongueController;
     [SerializeField] public float speed;
+    
     private float lastSpeed;
 
     private void Start()
