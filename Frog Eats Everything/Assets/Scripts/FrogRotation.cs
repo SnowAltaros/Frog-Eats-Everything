@@ -17,8 +17,6 @@ public class FrogRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckSpeedChange();
-
         if (!tongueController.isShooted)
         {
             RotateToMousePos();
@@ -40,14 +38,5 @@ public class FrogRotation : MonoBehaviour
 
         // Adding speed and rotate to target position from initial
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime);
-    }
-
-    private void CheckSpeedChange()
-    {
-        if (PlayerStats.frogRotationSpeed != lastSpeed)
-        {
-            speed = PlayerStats.frogRotationSpeed;
-            lastSpeed = speed;
-        }
     }
 }

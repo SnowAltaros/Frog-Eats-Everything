@@ -6,9 +6,7 @@ public class TongController : MonoBehaviour
     [SerializeField] public float tongueLength;
     [SerializeField] public float speed;
     [SerializeField] public int strength;
-    private float lastTongueLength;
-    private float lastSpeed;
-    private int lastStrength;
+    
     private Vector3 startTongueLength;
     private bool isTongueOut;
     public bool isShooted;
@@ -22,8 +20,6 @@ public class TongController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckTongueStatsChange();
-
         if (inputHandler.mouseWasClicked)
         {
             ShootTongue();
@@ -36,32 +32,8 @@ public class TongController : MonoBehaviour
     {
         startTongueLength = transform.localScale;
         tongueLength = PlayerStats.tongueLength;
-        lastTongueLength = tongueLength;
         speed = PlayerStats.tongueSpeed;
-        lastSpeed = speed;
         strength = PlayerStats.tongueStength;
-        lastStrength = strength;
-    }
-
-    private void CheckTongueStatsChange()
-    {
-        if (PlayerStats.tongueLength != lastTongueLength)
-        {
-            tongueLength = PlayerStats.tongueLength;
-            lastTongueLength = tongueLength;
-        }
-
-        if (PlayerStats.tongueSpeed != lastSpeed)
-        {
-            speed = PlayerStats.tongueSpeed;
-            lastSpeed = speed;
-        }
-
-        if (PlayerStats.tongueStength != lastStrength)
-        {
-            strength = PlayerStats.tongueStength;
-            lastStrength = strength;
-        }
     }
 
     private void ShootTongue()

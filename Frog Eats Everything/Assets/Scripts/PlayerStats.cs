@@ -5,6 +5,5 @@ public class PlayerStats
     public static float tongueLength = 10f;
     public static float tongueSpeed = 15f;
     public static float frogRotationSpeed = 40f;
-    
 }
 

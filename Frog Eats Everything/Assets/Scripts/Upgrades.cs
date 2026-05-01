@@ -5,58 +5,92 @@ using UnityEngine.UI;
 public class Upgrades : MonoBehaviour
 {
     private float twentyPercent = 0.2f; // 20/100 = 0.2%
-    private int strenthUpgradeAmount = 1;
-    [SerializeField] private Button buton;
+    
+    [Header("Frog")]
+    [SerializeField] private FrogRotation frogRotation;
+
+    [Header("Tongue")] [SerializeField] private TongController tongueController;
+    
+    [SerializeField] private Button button;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
-    [SerializeField] public int upgradeCost = 1;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private GameObject wingsImage;
+    
+    [SerializeField] private int upgradeCost = 1;
+    [SerializeField] private int levelCount = 0;
+    [SerializeField] private int maxLevel;
 
     private void Start()
     {
-        buton.interactable = false;
+        button.interactable = false;
         upgradeCostText.text = upgradeCost + "";
+        levelText.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (PlayerStats.wings < upgradeCost)
+        if (PlayerStats.wings < upgradeCost && levelCount < maxLevel)
         {
-            buton.interactable = false;
+            button.interactable = false;
         }
         else
         {
-            buton.interactable = true;
+            button.interactable = true;
         }
+
+        if (levelCount > 0)
+        {
+            levelText.gameObject.SetActive(true);
+            levelText.text = "Lvl: " + levelCount;
+        }
+
+        if (levelCount == maxLevel)
+        {
+            levelText.text = "Lvl: MAX";
+            button.interactable = false;
+            upgradeCostText.gameObject.SetActive(false);
+            wingsImage.SetActive(false);
+        }
+        
         upgradeCostText.text = upgradeCost + "";
     }
     public void UpgradeRotationSpeed()
     {
         PlayerStats.frogRotationSpeed += PlayerStats.frogRotationSpeed * twentyPercent;
+        frogRotation.speed += PlayerStats.frogRotationSpeed;
         PlayerStats.wings -= upgradeCost;
-        upgradeCost += 1;
+        upgradeCost += 3;
         upgradeCostText.text = upgradeCost + "";
+        levelCount++;
     }
 
     public void UpgradeTongueLength()
     {
         PlayerStats.tongueLength += PlayerStats.tongueLength * twentyPercent;
+        tongueController.tongueLength = PlayerStats.tongueLength;
         PlayerStats.wings -= upgradeCost;
-        upgradeCost += 1;
+        upgradeCost += 3;
         upgradeCostText.text = upgradeCost + "";
+        levelCount++;
     }
 
     public void UpgradeTongueSpeed()
     {
         PlayerStats.tongueSpeed += PlayerStats.tongueSpeed * twentyPercent;
+        tongueController.speed = PlayerStats.tongueSpeed;
         PlayerStats.wings -= upgradeCost;
-        upgradeCost += 1;
+        upgradeCost += 3;
         upgradeCostText.text = upgradeCost + "";
+        levelCount++;
     }
 
     public void UpgradeTongueStrength()
     {
-        PlayerStats.tongueStength += strenthUpgradeAmount;
+        PlayerStats.tongueStength ++;
+        tongueController.strength = PlayerStats.tongueStength; 
         PlayerStats.wings -= upgradeCost;
         upgradeCost += 10;
         upgradeCostText.text = upgradeCost + "";
+        levelCount++;
     }
 }

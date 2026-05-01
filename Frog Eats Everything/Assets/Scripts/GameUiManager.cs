@@ -14,6 +14,6 @@ public class GameUiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        wingsText.text = "" + PlayerStats.wings;
+        wingsText.text = $"{PlayerStats.wings}";
     }
 }

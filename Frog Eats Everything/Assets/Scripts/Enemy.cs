@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,10 +11,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private string enemyType;
     [SerializeField] private int value;
     private SpawnManager spawnManager;
-    private float topPos = 6f;
-    private float bottomPos = -6f;
-    private float leftPos = -11f;
-    private float rightPos = 11f;
+    private float topPos = 9f;
+    private float bottomPos = -9f;
+    private float leftPos = -15f;
+    private float rightPos = 15f;
     private bool isHitted;
     private Transform tongueEnd;
     private Vector2 direction;
@@ -88,17 +90,25 @@ public class Enemy : MonoBehaviour
 
     private void ChangeDirectionOutsideScreen()
     {
-        if (transform.position.x < leftPos || transform.position.x > rightPos || transform.position.y < bottomPos || transform.position.y > topPos)
-        {
+        if (transform.position.x > rightPos && direction.x > 0)
             MoveToCenter();
-        }
+        else if (transform.position.x < leftPos && direction.x < 0)
+            MoveToCenter();
+        else if (transform.position.y > topPos && direction.y > 0)
+            MoveToCenter();
+        else if (transform.position.y < bottomPos && direction.y < 0)
+            MoveToCenter();
     }
 
     private void MoveToCenter()
     {
         Vector2 center = Vector2.zero;
-        Vector2 randomDirection = Random.insideUnitCircle.normalized * 0.5f;
-        direction = (center + randomDirection).normalized;
+        Vector2 directionToCenter = ((Vector2)transform.position - center).normalized * -1f;
+        Vector2 randomOffset = Random.insideUnitCircle.normalized;
+
+        // Adjust the blend: higher centerBias = moves to center more frequently
+        float centerBias = 0.7f; // 0 = fully random, 1 = always toward center
+        direction = (directionToCenter * centerBias + randomOffset * (1f - centerBias)).normalized;
         transform.up = direction;
     }
 
