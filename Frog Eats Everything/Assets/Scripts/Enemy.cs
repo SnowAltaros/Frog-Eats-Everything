@@ -1,10 +1,12 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer sr;
+    
     [SerializeField] private float speed = 10f;
     [SerializeField] private int health;
     [SerializeField] private Slider healthBar;
@@ -127,6 +129,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Tongue"))
         {
+            StartCoroutine(HitEffect());
             TongController tongue = collision.gameObject.GetComponentInParent<TongController>();
 
             if (tongue.strength > 0)
@@ -168,5 +171,13 @@ public class Enemy : MonoBehaviour
                 ReverseDirection();
             }
         }
+    }
+
+    IEnumerator HitEffect()
+    {
+        sr.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        sr.color = Color.white;
+        StopCoroutine(HitEffect());
     }
 }

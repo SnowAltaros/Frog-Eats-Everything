@@ -506,11 +506,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9555617958363454bbf00841fdb0fd69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  sr: {fileID: 730110759914772719}
   speed: 2
   health: 3
   healthBar: {fileID: 177257401062874260}
   enemyType: DragonFly
-  value: 2
+  value: 3
 --- !u!70 &7909182390824632996
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
