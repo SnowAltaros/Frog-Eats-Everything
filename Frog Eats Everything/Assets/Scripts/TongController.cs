@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TongController : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class TongController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputHandler.mouseWasClicked)
+        if (inputHandler.mouseWasClicked && !EventSystem.current.IsPointerOverGameObject())
         {
             ShootTongue();
         }
